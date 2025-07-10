@@ -1,0 +1,27 @@
+{
+  "datasets": {
+    "parti_prompts": {
+      "name": "PartiPrompts",
+      "source": "nateraw/parti-prompts",
+      "description": "A collection of prompts for evaluating text-to-image models",
+      "url": "https://huggingface.co/datasets/nateraw/parti-prompts",
+      "local_path": "data/parti_prompts"
+    },
+    "t2i_factualbench": {
+      "name": "T2I-FactualBench",
+      "source": "Sakeoffellow001/T2i_Factualbench",
+      "description": "Benchmarking the Factuality of Text-to-Image Models with Knowledge-Intensive Concepts",
+      "url": "https://huggingface.co/datasets/Sakeoffellow001/T2i_Factualbench",
+      "local_path": "data/t2i_factualbench"
+    },
+    "t2i_compbench": {
+      "name": "T2I-CompBench",
+      "source": "NinaKarine/t2i-compbench",
+      "description": "A comprehensive benchmark for open-world compositional text-to-image generation",
+      "url": "https://huggingface.co/datasets/NinaKarine/t2i-compbench",
+      "local_path": "data/t2i_compbench"
+    }
+  },
+  "download_date": "2025-07-10T22:09:35.402306",
+  "version": "1.0.0"
+}

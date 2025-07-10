@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "prompt": "A red car on the street",
+    "category": "Vehicles",
+    "challenge": "Basic"
+  },
+  {
+    "id": 1,
+    "prompt": "A person reading a book in a library",
+    "category": "People",
+    "challenge": "Basic"
+  },
+  {
+    "id": 2,
+    "prompt": "A beautiful sunset over the ocean",
+    "category": "Nature",
+    "challenge": "Basic"
+  },
+  {
+    "id": 3,
+    "prompt": "A cat sitting on a windowsill",
+    "category": "Animals",
+    "challenge": "Basic"
+  },
+  {
+    "id": 4,
+    "prompt": "A modern building with glass windows",
+    "category": "Architecture",
+    "challenge": "Basic"
+  }
+]

@@ -1,0 +1,106 @@
+# 阶段二：幻觉检测模型训练配置
+
+# 数据集配置
+dataset:
+  evalmuse:
+    name: "DY-Evalab/EvalMuse"
+    local_path: "data/evalmuse"
+    download: false  # 禁用下载，使用本地数据
+    offline_mode: true  # 启用离线模式
+    train_split: 0.8
+    val_split: 0.1
+    test_split: 0.1
+
+# 模型配置
+model:
+  # 基础模型选择
+  base_model: "clip"  # clip, blip, or custom
+  
+  # CLIP配置
+  clip:
+    model_name: "openai/clip-vit-base-patch32"
+    local_model_path: "models/pretrained/clip-vit-base-patch32"  # 本地模型路径
+    freeze_backbone: false
+    
+  # 分类头配置
+  classifier:
+    hidden_dims: [512, 256, 128]
+    dropout: 0.3
+    activation: "relu"
+    num_classes: 2  # 有幻觉/无幻觉
+  
+  # 多模态融合配置
+  fusion:
+    method: "concat"  # concat, attention, or cross_attention
+    fusion_dim: 512
+
+# 训练配置
+training:
+  batch_size: 16  # 减少以适应服务器内存
+  learning_rate: 2e-5
+  num_epochs: 10
+  warmup_steps: 500
+  weight_decay: 0.01
+  gradient_clip_norm: 1.0
+  
+  # 优化器配置
+  optimizer: "adamw"
+  scheduler: "cosine"
+  
+  # 早停配置
+  early_stopping:
+    patience: 3
+    min_delta: 0.001
+    monitor: "val_f1"
+    mode: "max"
+
+# 数据增强配置
+data_augmentation:
+  image:
+    enabled: true
+    transforms:
+      - "random_resized_crop"
+      - "horizontal_flip"
+      - "color_jitter"
+      - "normalize"
+  
+  text:
+    enabled: false  # 文本增强可能会改变语义
+
+# 评估配置
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+    - "auc"
+  
+  # 幻觉类型分析
+  hallucination_types:
+    - "semantic_inconsistency"    # 语义不一致
+    - "factual_error"            # 事实性错误
+    - "object_hallucination"     # 对象幻觉
+    - "attribute_error"          # 属性错误
+    - "spatial_error"            # 空间错误
+
+# 设备和性能配置
+device: "auto"  # auto, cuda, cpu - 自动检测最佳设备
+num_workers: 2  # 减少以适应服务器环境
+pin_memory: true
+mixed_precision: true
+
+# 输出配置
+output:
+  model_save_dir: "models/stage2"
+  results_dir: "results/stage2"
+  log_dir: "logs/stage2"
+  save_best_only: true
+  save_last: true
+
+# 日志和监控配置
+logging:
+  use_wandb: false
+  wandb_project: "t2i_hallucination_detection"
+  log_interval: 100
+  eval_interval: 500
